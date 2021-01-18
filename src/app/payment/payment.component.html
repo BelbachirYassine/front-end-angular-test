@@ -1,0 +1,64 @@
+<div class="payment-form-container full-height display-flex-center">
+    <form class="row g-3 payment-form needs-validation" #paymentForm novalidate>
+        <div class="col-12">
+            <label for="cc-number" class="form-label">Credit Card Number</label>
+            <input type="text" class="form-control justNumber" id="cc-number" name="cc-number"
+                [(ngModel)]="paymentInfo.creditCardNumber" minlength="16" maxlength="16" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                invalid
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="cc-holder" class="form-label">Card Holder</label>
+            <input type="text" class="form-control noNumber" id="cc-holder" name="cc-holder"
+                [(ngModel)]="paymentInfo.cardHolder" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                invalid
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <label for="date" class="form-label">Expiration Date</label>
+            <input type="month" class="form-control type-number" id="date" name="date"
+                [(ngModel)]="paymentInfo.expirationDate" required>
+            <div class="invalid-feedback">
+                invalid
+            </div>
+            <div *ngIf="isExpired" class="expired">
+                expired card
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <label for="security-code" class="form-label">Security Code</label>
+            <input type="text" class="form-control justNumber" id="security-code" name="security-code"
+                [(ngModel)]="paymentInfo.securityCode" minlength="3" maxlength="3">
+            <div class="invalid-feedback">
+                invalid
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="amount" class="form-label">Amount</label>
+            <div class="input-group has-validation">
+                <span class="input-group-text" id="currency">$</span>
+                <input type="number" class="form-control type-number amount" id="amount" name="amount"
+                    [(ngModel)]="paymentInfo.amount" min="0" aria-describedby="currency validationAmountFeedback"
+                    required>
+                <span class="input-group-text">.00</span>
+                <div id="validationAmountFeedback" class="invalid-feedback">
+                    invalid
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <button mat-raised-button class="submit-btn" type="submit"
+                (click)="sendPayment(paymentForm)">Submit</button>
+        </div>
+    </form>
+</div>
